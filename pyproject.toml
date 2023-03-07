@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "electronics-retail-chain"
+version = "0.1.0"
+description = ""
+authors = ["doom <phramov945@gmail.com>"]
+readme = "README.md"
+packages = [{include = "electronics_retail_chain"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.1.7"
+djangorestframework = "^3.14.0"
+django-environ = "^0.10.0"
+psycopg2-binary = "^2.9.5"
+django-filter = "^22.1"
+
+[tool.poetry.dev-dependencies]
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
