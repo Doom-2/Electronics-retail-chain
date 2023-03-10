@@ -67,10 +67,7 @@ class Link(DatesModelMixin):
                                 verbose_name='contact',
                                 on_delete=models.PROTECT,
                                 related_name='links', null=True, blank=True)
-    product = models.ForeignKey(Product,
-                                verbose_name='product',
-                                on_delete=models.PROTECT,
-                                related_name='retailers', null=True, blank=True)
+    product = models.ManyToManyField(Product, related_name='sellers', blank=True)
     supplier = models.ForeignKey(Supplier,
                                  verbose_name='supplier',
                                  on_delete=models.PROTECT,
