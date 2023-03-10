@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import PositiveSmallIntegerField
 from django.utils.translation import gettext_lazy as _
@@ -60,6 +61,37 @@ class Supplier(models.Model):
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        """
+        Checks the validity of the object hierarchy level
+        and raises an exception before calling method save() if needed.
+        """
+
+        if self.supplier_parent and self.type == self.SupType.manufacturer:
+            raise ValidationError(
+                'Top hierarchy level object cannot have a parent.'
+            )
+        elif not self.supplier_parent and self.type != self.SupType.manufacturer:
+            raise ValidationError(
+                'Non-top hierarchy level object must have a parent.'
+            )
+        elif self.supplier_parent and (
+                self.supplier_parent.type == self.SupType.retailer and self.type == self.SupType.reseller):
+            raise ValidationError(
+                'Object of a higher level cannot have a parent of a lower level.'
+            )
+        elif self.supplier_parent and (
+                self.supplier_parent.type == self.SupType.reseller and self.type == self.SupType.reseller or
+                self.supplier_parent.type == self.SupType.retailer and self.type == self.SupType.retailer):
+            raise ValidationError(
+                'Object must have a parent of a higher level than itself.'
+            )
+        super().clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
 
 class Link(DatesModelMixin):
