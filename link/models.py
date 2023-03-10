@@ -84,3 +84,6 @@ class Link(DatesModelMixin):
 
     def products(self):
         return ', '.join([str(p) for p in self.product.all()])
+
+    def supplier_parent(self):
+        return self.supplier.supplier_parent
