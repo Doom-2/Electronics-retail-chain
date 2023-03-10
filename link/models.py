@@ -49,6 +49,11 @@ class Supplier(models.Model):
         retailer = 2, 'Retailer'
 
     title = models.CharField(verbose_name='title', max_length=64)
+
+    supplier_parent = models.ForeignKey('self',
+                                        on_delete=models.PROTECT,
+                                        null=True, blank=True)
+
     type = PositiveSmallIntegerField(verbose_name='Supplier type',
                                      choices=SupType.choices,
                                      default=SupType.manufacturer)
