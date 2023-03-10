@@ -76,3 +76,6 @@ class Link(DatesModelMixin):
 
     def __str__(self):
         return self.title
+
+    def products(self):
+        return ', '.join([str(p) for p in self.product.all()])

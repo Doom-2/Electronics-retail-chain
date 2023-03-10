@@ -15,7 +15,7 @@ class LinkAdmin(admin.ModelAdmin):
     Adds an action to reset the 'receivables' field.
     """
 
-    list_display = ('title', 'contact', 'product', 'supplier', 'receivables', 'created')
+    list_display = ('title', 'contact', 'products', 'supplier', 'receivables', 'created')
     list_display_links = ('title', 'supplier',)
     list_filter = ('contact__city',)
     search_fields = ('contact__city',)
