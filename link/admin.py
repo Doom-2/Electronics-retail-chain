@@ -12,7 +12,7 @@ def receivables_reset(modeladmin, request, queryset):
 class LinkAdmin(admin.ModelAdmin):
     """
     Displays all fields except 'id'.
-    Makes fk 'supplier' as link.
+    Makes FKs 'legal_name' and 'supplier' as links.
     Allows to search and filter by field 'city' from 'Contact' model.
     Adds an action to reset the 'receivables' field.
     """

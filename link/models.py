@@ -120,8 +120,8 @@ class Link(DatesModelMixin):
 
     def clean(self):
         """
-        Checks the validity of the object hierarchy level
-        and raises an exception before calling method save() if needed.
+        Checks the hierarchy level of the object referenced by the 'legal_name' field
+        and prevents its creation if the type is 'Manufacturer'.
         """
 
         if self.legal_name.type == BusinessUnit.SupType.manufacturer:
