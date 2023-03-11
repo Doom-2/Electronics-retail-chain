@@ -18,7 +18,7 @@ class LinkAdmin(admin.ModelAdmin):
     Adds an action to reset the 'receivables' field.
     """
 
-    list_display = ('title', 'legal_name_link', 'contact', 'products', 'suppliers', 'receivables', 'created')
+    list_display = ('title', 'legal_name_link', 'contact', 'products', 'supplier_set', 'receivables', 'created')
     list_filter = ('contact__city',)
     search_fields = ('contact__city',)
     actions = (receivables_reset,)
@@ -29,6 +29,28 @@ class LinkAdmin(admin.ModelAdmin):
 
     legal_name_link.short_description = 'legal name'
     legal_name_link.admin_order_field = 'legal_name'
+
+    def products(self, obj: Link):
+        rel_list = "<div style=\"overflow: auto; height:80px;\"><ol style=\"PADDING-LEFT: 5px\">"
+        for prod in obj.product.all():
+            rel_list += '<li>%s</li>' % prod
+        rel_list += '</ol></div>'
+        return format_html(rel_list)
+
+    def supplier_set(self, obj: Link):
+        return self.links_to_objects(obj.legal_name.supplier.all())
+
+    @classmethod
+    def links_to_objects(cls, objects):
+        rel_list = "<div style=\"overflow: auto; height:80px;\"><ol style=\"PADDING-LEFT: 5px\">"
+        for obj in objects:
+            link = reverse('admin:link_businessunit_change', args=[obj.id])
+            rel_list += "<li><a href='%s'>%s</a></li>" % (link, obj.title)
+        rel_list += '</ol></div>'
+        return format_html(rel_list)
+
+    supplier_set.short_description = 'Suppliers'
+    supplier_set.admin_order_field = 'legal_name__title'
 
 
 admin.site.register(Contact)

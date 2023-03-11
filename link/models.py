@@ -99,9 +99,10 @@ class Link(DatesModelMixin):
     def __str__(self):
         return self.title
 
-    def products(self):
-        return ', '.join([str(p) for p in self.product.all()])
-
-    @property
-    def suppliers(self):
-        return ', '.join([str(p) for p in self.legal_name.supplier.all()]) if self.legal_name.supplier.all() else 'N/A'
+    # @property
+    # def suppliers(self):
+    #     """
+    #     Returns list of  LegalPerson object suppliers as string, separated by comma
+    #     """
+    #     return ', '.join([str(p) for p in self.legal_name.supplier.all()])\
+    #         if self.legal_name.supplier.all() else 'N/A'
