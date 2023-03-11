@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Link, Product, Supplier, Contact
+from .models import Link, Product, BusinessUnit, Contact
 
 
 class LinkCreateSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class LinkSerializer(serializers.ModelSerializer):
     )
 
     supplier = serializers.SlugRelatedField(
-        queryset=Supplier.objects.all(),
+        queryset=BusinessUnit.objects.all(),
         slug_field='title'
     )
 
