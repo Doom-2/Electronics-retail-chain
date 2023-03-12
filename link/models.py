@@ -36,7 +36,7 @@ class Product(models.Model):
     release_date = models.DateField(verbose_name='release date', null=True, blank=True)
 
     def __str__(self):
-        return self.title
+        return f'{self.title} - {self.model}'
 
 
 class BusinessUnit(models.Model):
@@ -111,8 +111,8 @@ class Link(DatesModelMixin):
     def __str__(self):
         return self.title
 
-    def products(self):
-        return ', '.join([str(p) for p in self.product.all()])
+    # def products(self):
+    #     return ', '.join([str(p) for p in self.product.all()])
 
     @property
     def supplier(self):
