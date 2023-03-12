@@ -29,6 +29,15 @@ class LinkAdmin(admin.ModelAdmin):
     legal_name_link.short_description = 'legal name'
     legal_name_link.admin_order_field = 'legal_name'
 
+    def products(self, obj: Link):
+        """Displays products of current Link object as a numbered list with scrolling"""
+
+        rel_list = "<div style=\"overflow: auto; height:80px;\"><ol style=\"PADDING-LEFT: 5px\">"
+        for prod in obj.product.all():
+            rel_list += '<li>%s</li>' % prod
+        rel_list += '</ol></div>'
+        return format_html(rel_list)
+
     def supplier_link(self, obj: Link):
         link = reverse('admin:link_businessunit_change', args=[obj.supplier.id])
         return format_html("<a href='{}'>{}</a>", link, obj.supplier.title)
