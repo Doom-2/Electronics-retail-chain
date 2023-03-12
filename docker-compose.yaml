@@ -15,9 +15,9 @@ services:
       retries: 5
 
     ports:
-      - "5432:5432"
+      - "5434:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pg_data_master:/var/lib/postgresql/data
 
 volumes:
-  pg_data:
+  pg_data_master:
